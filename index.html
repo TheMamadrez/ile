@@ -1,168 +1,570 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داشبورد من</title>
-    <style>
-        /* تمام استایل‌های قبلی دقیقاً به همین شکل */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { width: 100%; height: 100%; font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; }
-        #loginPage { width: 100vw; height: 100vh; background: url('https://cdn.stocksnap.io/img-thumbs/960w/colorful-art_ICYNNM3ZLN.jpg') center/cover no-repeat; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 2; transition: opacity 0.6s ease, transform 0.6s ease; }
-        #loginPage.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
-        .login-box { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 40px 32px; border-radius: 32px; box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6); text-align: center; width: 340px; border: 1px solid rgba(255, 255, 255, 0.15); }
-        .login-box h2 { color: #fff; font-weight: 300; letter-spacing: 2px; margin-bottom: 24px; font-size: 1.8em; }
-        .login-box input { width: 100%; padding: 14px 18px; border: none; border-radius: 50px; background: rgba(255, 255, 255, 0.15); color: #fff; font-size: 1em; outline: none; text-align: center; transition: 0.3s; }
-        .login-box input:focus { background: rgba(255, 255, 255, 0.25); box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-        .login-box input::placeholder { color: rgba(255, 255, 255, 0.6); }
-        .login-box button { width: 100%; padding: 14px; margin-top: 18px; border: none; border-radius: 50px; background: linear-gradient(135deg, #ff6b9d, #c44569); color: #fff; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 8px 30px rgba(255, 107, 157, 0.3); }
-        .login-box button:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 40px rgba(255, 107, 157, 0.5); }
-        .login-box .error { color: #ffb3b3; margin-top: 14px; font-size: 0.9em; height: 24px; }
-        #dashboard { width: 100vw; height: 100vh; background: url('https://cdn.stocksnap.io/img-thumbs/960w/abstract-painted_O2UV4BLNFD.jpg') center/cover no-repeat; display: none; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; z-index: 1; padding: 20px; }
-        .dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; max-width: 900px; width: 100%; background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 40px 35px; border-radius: 48px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); }
-        .card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 28px 20px; border-radius: 28px; text-align: center; color: #fff; border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.3s ease; cursor: default; }
-        .card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
-        .card .icon { font-size: 3em; margin-bottom: 12px; display: block; }
-        .card h3 { font-weight: 500; font-size: 1.2em; margin-bottom: 6px; letter-spacing: 0.5px; }
-        .card p { font-size: 0.9em; opacity: 0.7; font-weight: 300; }
-        .card .value { font-size: 2em; font-weight: 600; margin-top: 10px; background: linear-gradient(135deg, #fbc2eb, #a6c1ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .logout-btn { position: fixed; top: 24px; right: 28px; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 22px; border-radius: 40px; font-size: 0.95em; cursor: pointer; z-index: 10; transition: 0.3s; font-weight: 500; }
-        .logout-btn:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.04); }
-        @media (max-width: 600px) { .dashboard-container { grid-template-columns: 1fr 1fr; gap: 16px; padding: 24px 18px; border-radius: 32px; } .card { padding: 20px 14px; } .card .icon { font-size: 2.2em; } .login-box { width: 92%; padding: 30px 20px; } .logout-btn { top: 16px; right: 16px; padding: 8px 16px; font-size: 0.8em; } }
-        @media (max-width: 400px) { .dashboard-container { grid-template-columns: 1fr; gap: 14px; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>روایح | فروشگاه عطرهای لوکس</title>
+  <!-- استفاده از فونت وزیر فارسی -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: #faf7f4;
+      color: #2e2a27;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* هدر و نویگیشن */
+    header {
+      background: rgba(255, 248, 243, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #3b2e24;
+      letter-spacing: 1px;
+    }
+    .logo span {
+      color: #b68b5c;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #3b2e24;
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 1rem;
+    }
+    nav a:hover {
+      color: #b68b5c;
+    }
+
+    .cart-icon {
+      background: #f0e5db;
+      padding: 8px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.3s;
+      border: 1px solid transparent;
+    }
+    .cart-icon:hover {
+      background: #e4d5c4;
+      border-color: #b68b5c;
+    }
+    #cart-count {
+      background: #b68b5c;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    /* بخش قهرمان */
+    .hero {
+      background: linear-gradient(135deg, #f7efe5 0%, #ede0d0 100%);
+      padding: 50px 0;
+      text-align: center;
+      border-radius: 0 0 60px 60px;
+      margin-bottom: 40px;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #2e241a;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #5e4c3a;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* فیلترها */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: white;
+      border: 1px solid #d9c9b6;
+      padding: 10px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Vazirmatn';
+      font-weight: 500;
+      transition: all 0.3s;
+      color: #3b2e24;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: #b68b5c;
+      color: white;
+      border-color: #b68b5c;
+    }
+
+    /* گالری محصولات */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.1);
+    }
+    .product-img {
+      height: 240px;
+      background: #f3ede7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      background: radial-gradient(circle at 30% 30%, #fff7ef, #f1e4d4);
+      position: relative;
+    }
+    .product-category {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(5px);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #5c3e24;
+    }
+    .product-info {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-info h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #2e241a;
+    }
+    .product-desc {
+      font-size: 0.9rem;
+      color: #7b6b5c;
+      margin-bottom: 15px;
+      flex: 1;
+    }
+    .price-cart {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    .price {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #b68b5c;
+    }
+    .add-to-cart {
+      background: #2e241a;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Vazirmatn';
+      font-weight: 600;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .add-to-cart:hover {
+      background: #b68b5c;
+      color: white;
+    }
+
+    /* سبد خرید شناور */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      background: white;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+      z-index: 200;
+      transition: left 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+    }
+    .cart-sidebar.open {
+      left: 0;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #3b2e24;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+    .cart-item-info h4 {
+      font-size: 1rem;
+    }
+    .cart-item-price {
+      color: #b68b5c;
+      font-weight: bold;
+    }
+    .remove-item {
+      background: #f1e4d4;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin: 15px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .checkout-btn {
+      background: #b68b5c;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 30px;
+      font-family: 'Vazirmatn';
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .checkout-btn:hover {
+      background: #2e241a;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 150;
+      display: none;
+    }
+    .overlay.active {
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #7b6b5c;
+      border-top: 1px solid #ede0d0;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="container header-inner">
+      <div class="logo">روا<span>یح</span></div>
+      <nav>
+        <a href="#">خانه</a>
+        <a href="#">محصولات</a>
+        <a href="#">درباره ما</a>
+        <a href="#">تماس</a>
+      </nav>
+      <div class="cart-icon" id="cartToggle">
+        🛒 سبد خرید <span id="cart-count">0</span>
+      </div>
+    </div>
+  </header>
 
-    <!-- ===== عنصر صوتی با لینک جدید ===== -->
-    <audio id="bgMusic" loop autoplay>
-        <source src="https://dl.musicdagh.ir/songs/best/crocketts-theme.mp3" type="audio/mpeg">
-        مرورگر شما از پخش آهنگ پشتیبانی نمی‌کند.
-    </audio>
+  <section class="hero">
+    <div class="container">
+      <h1>عطر اصالت و خاطره</h1>
+      <p>مجموعه‌ای از نفیس‌ترین عطرهای شرقی و مدرن، هر رایحه داستانی برای گفتن دارد.</p>
+    </div>
+  </section>
 
-    <!-- صفحه ورود -->
-    <div id="loginPage">
-        <div class="login-box">
-            <h2>🔐 ورود به داشبورد</h2>
-            <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید" autofocus>
-            <button onclick="checkPassword()">ورود</button>
-            <div class="error" id="errorMsg"></div>
-        </div>
+  <div class="container">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">همه</button>
+      <button class="filter-btn" data-filter="شرقی">شرقی</button>
+      <button class="filter-btn" data-filter="خنک">خنک</button>
+      <button class="filter-btn" data-filter="گل">گلی</button>
+      <button class="filter-btn" data-filter="چوبی">چوبی</button>
     </div>
 
-    <!-- صفحه داشبورد -->
-    <div id="dashboard">
-        <button class="logout-btn" onclick="logout()">🚪 خروج</button>
-        <div class="dashboard-container">
-            <div class="card">
-                <span class="icon">📊</span>
-                <h3>بازدید امروز</h3>
-                <div class="value" id="visits">۰</div>
-            </div>
-            <div class="card">
-                <span class="icon">👤</span>
-                <h3>کاربران آنلاین</h3>
-                <div class="value" id="online">۰</div>
-            </div>
-            <div class="card">
-                <span class="icon">⭐</span>
-                <h3>امتیاز شما</h3>
-                <div class="value" id="score">۰</div>
-            </div>
-            <div class="card">
-                <span class="icon">🕒</span>
-                <h3>ساعت</h3>
-                <div class="value" id="clock">۰۰:۰۰</div>
-            </div>
-        </div>
+    <div class="products-grid" id="productsContainer"></div>
+  </div>
+
+  <!-- سبد خرید -->
+  <div class="overlay" id="overlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>سبد خرید شما</h2>
+      <button class="close-cart" id="closeCart">&times;</button>
     </div>
+    <div class="cart-items" id="cartItems">
+      <p style="color:#aaa; text-align:center;">سبد خرید خالی است</p>
+    </div>
+    <div class="total" id="cartTotal">مجموع: ۰ تومان</div>
+    <button class="checkout-btn" id="checkoutBtn">تکمیل خرید</button>
+  </div>
 
-    <script>
-        // ===== پخش خودکار آهنگ (در صورت عدم پخش خودکار توسط مرورگر) =====
-        document.addEventListener('click', function() {
-            const music = document.getElementById('bgMusic');
-            if (music.paused) {
-                music.play().catch(e => console.log('پخش خودکار ممکن نیست: ', e));
-            }
-        }, { once: true });
+  <footer>
+    <p>© 2025 فروشگاه عطر روایح. تمامی حقوق محفوظ است.</p>
+  </footer>
 
-        // ===== توابع قبلی =====
-        function checkPassword() {
-            const input = document.getElementById('passwordInput');
-            const error = document.getElementById('errorMsg');
-            const loginPage = document.getElementById('loginPage');
-            const dashboard = document.getElementById('dashboard');
+  <script>
+    (function() {
+      // دیتابیس محصولات
+      const products = [
+        { id: 1, name: "عود و عنبر", category: "شرقی", price: 2850000, desc: "گرم و ماندگار با نت‌های چوب عود و عنبر ساحلی", emoji: "🕌✨" },
+        { id: 2, name: "شامپاین رز", category: "خنک", price: 1950000, desc: "رایحه شاداب انگور و گل رز، مناسب مهمانی", emoji: "🥂🌹" },
+        { id: 3, name: "یاس شب", category: "گل", price: 1650000, desc: "عطر خالص یاس و شکوفه پرتقال، لطیف و رویایی", emoji: "🌼🌙" },
+        { id: 4, name: "سدر و نعناع", category: "چوبی", price: 2100000, desc: "تلفیق چوب سدر با خنکای نعناع کوهی", emoji: "🌲🍃" },
+        { id: 5, name: "مشک سیاه", category: "شرقی", price: 3200000, desc: "مشک نجیب و ادویه‌های شرقی، اعتماد به نفس محض", emoji: "🖤🕌" },
+        { id: 6, name: "نسیم دریا", category: "خنک", price: 1750000, desc: "نت‌های مرکباتی و آکورد دریایی، تازگی بی‌پایان", emoji: "🌊🍋" },
+        { id: 7, name: "گاردنیا مخملی", category: "گل", price: 2420000, desc: "گل گاردنیا و وانیل، زنانه و مجلل", emoji: "🌸🤍" },
+        { id: 8, name: "چرم و تنباکو", category: "چوبی", price: 2980000, desc: "رایحه جسور چرم و تنباکوی شیرین", emoji: "🧥🪵" }
+      ];
 
-            if (input.value === 'mmhhdd133') {
-                loginPage.classList.add('hidden');
-                dashboard.style.display = 'flex';
-                startDashboard();
-            } else {
-                error.textContent = '❌ رمز اشتباه است!';
-                input.value = '';
-                input.focus();
-                const box = document.querySelector('.login-box');
-                box.style.transform = 'scale(0.97)';
-                setTimeout(() => box.style.transform = '', 150);
-            }
+      let cart = [];
+
+      // المان‌های DOM
+      const productsContainer = document.getElementById('productsContainer');
+      const cartToggle = document.getElementById('cartToggle');
+      const cartSidebar = document.getElementById('cartSidebar');
+      const closeCart = document.getElementById('closeCart');
+      const overlay = document.getElementById('overlay');
+      const cartItemsDiv = document.getElementById('cartItems');
+      const cartCountSpan = document.getElementById('cart-count');
+      const cartTotalDiv = document.getElementById('cartTotal');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+
+      // ذخیره و بازیابی سبد از localStorage
+      function saveCart() {
+        localStorage.setItem('perfumeCart', JSON.stringify(cart));
+      }
+
+      function loadCart() {
+        const stored = localStorage.getItem('perfumeCart');
+        if (stored) {
+          cart = JSON.parse(stored);
+        } else {
+          cart = [];
+        }
+      }
+
+      // نمایش محصولات بر اساس فیلتر
+      function renderProducts(filter = 'all') {
+        if (!productsContainer) return;
+        const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+        productsContainer.innerHTML = filtered.map(product => `
+          <div class="product-card" data-category="${product.category}">
+            <div class="product-img">
+              <span style="font-size:4rem;">${product.emoji || '🧴'}</span>
+              <span class="product-category">${product.category}</span>
+            </div>
+            <div class="product-info">
+              <h3>${product.name}</h3>
+              <p class="product-desc">${product.desc}</p>
+              <div class="price-cart">
+                <span class="price">${product.price.toLocaleString()} تومان</span>
+                <button class="add-to-cart" data-id="${product.id}">🛒 افزودن</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // آپدیت UI سبد خرید
+      function updateCartUI() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountSpan.textContent = totalItems;
+
+        if (cart.length === 0) {
+          cartItemsDiv.innerHTML = '<p style="color:#aaa; text-align:center; padding:20px;">سبد خرید خالی است</p>';
+        } else {
+          cartItemsDiv.innerHTML = cart.map(item => `
+            <div class="cart-item">
+              <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <span class="cart-item-price">${item.price.toLocaleString()} تومان</span>
+                <span> (${item.quantity})</span>
+              </div>
+              <button class="remove-item" data-id="${item.id}">حذف</button>
+            </div>
+          `).join('');
         }
 
-        document.getElementById('passwordInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') checkPassword();
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotalDiv.textContent = `مجموع: ${totalPrice.toLocaleString()} تومان`;
+      }
+
+      // افزودن به سبد
+      function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+        const existing = cart.find(item => item.id === productId);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1 });
+        }
+        saveCart();
+        updateCartUI();
+        // بازخورد کوچک
+        alert(`${product.name} به سبد اضافه شد.`);
+      }
+
+      // حذف از سبد
+      function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        saveCart();
+        updateCartUI();
+      }
+
+      // باز و بسته کردن سبد
+      function openCart() {
+        cartSidebar.classList.add('open');
+        overlay.classList.add('active');
+      }
+
+      function closeCartFunc() {
+        cartSidebar.classList.remove('open');
+        overlay.classList.remove('active');
+      }
+
+      // event listeners
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-to-cart')) {
+          const id = parseInt(e.target.getAttribute('data-id'));
+          addToCart(id);
+        }
+
+        if (e.target.classList.contains('remove-item')) {
+          const id = parseInt(e.target.getAttribute('data-id'));
+          removeFromCart(id);
+        }
+      });
+
+      cartToggle.addEventListener('click', openCart);
+      closeCart.addEventListener('click', closeCartFunc);
+      overlay.addEventListener('click', closeCartFunc);
+
+      checkoutBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+          alert('سبد خرید شما خالی است!');
+          return;
+        }
+        alert('سفارش شما با موفقیت ثبت شد. از خرید شما سپاسگزاریم 🌹');
+        cart = [];
+        saveCart();
+        updateCartUI();
+        closeCartFunc();
+      });
+
+      // فیلترها
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterButtons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const filter = this.getAttribute('data-filter');
+          renderProducts(filter);
         });
+      });
 
-        let dashboardInterval = null;
-
-        function startDashboard() {
-            document.getElementById('visits').textContent = Math.floor(Math.random() * 150 + 20);
-            document.getElementById('online').textContent = Math.floor(Math.random() * 12 + 1);
-            document.getElementById('score').textContent = Math.floor(Math.random() * 900 + 100);
-            updateClock();
-            if (dashboardInterval) clearInterval(dashboardInterval);
-            dashboardInterval = setInterval(() => {
-                updateClock();
-                let visits = parseInt(document.getElementById('visits').textContent);
-                if (Math.random() > 0.7) {
-                    document.getElementById('visits').textContent = visits + Math.floor(Math.random() * 3);
-                }
-                let online = parseInt(document.getElementById('online').textContent);
-                if (Math.random() > 0.8) {
-                    let change = Math.floor(Math.random() * 3) - 1;
-                    document.getElementById('online').textContent = Math.max(1, online + change);
-                }
-            }, 3000);
-        }
-
-        function updateClock() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${h}:${m}`;
-        }
-
-        function logout() {
-            const loginPage = document.getElementById('loginPage');
-            const dashboard = document.getElementById('dashboard');
-            if (dashboardInterval) clearInterval(dashboardInterval);
-            dashboard.style.display = 'none';
-            loginPage.classList.remove('hidden');
-            document.getElementById('passwordInput').value = '';
-            document.getElementById('errorMsg').textContent = '';
-            document.getElementById('passwordInput').focus();
-        }
-
-        // ===== 120 FPS Loop =====
-        let frameId = null;
-        function smoothLoop() {
-            frameId = requestAnimationFrame(smoothLoop);
-        }
-        smoothLoop();
-
-        window.addEventListener('beforeunload', function() {
-            if (frameId) cancelAnimationFrame(frameId);
-            if (dashboardInterval) clearInterval(dashboardInterval);
-        });
-    </script>
-
+      // مقداردهی اولیه
+      loadCart();
+      renderProducts();
+      updateCartUI();
+    })();
+  </script>
 </body>
 </html>
